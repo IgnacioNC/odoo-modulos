@@ -1,28 +1,22 @@
-version: '3.8'
+version: '3'
 services:
   odoo:
-    image: odoo:17
+    image: odoo:18
+    env_file: .env
     depends_on:
-      - db
+      - postgres
     ports:
       - "8069:8069"
     volumes:
       - ./custom-addons:/mnt/extra-addons
-      - odoo-data:/var/lib/odoo
-    environment:
-      - HOST=db
-    restart: always
+      - data:/var/lib/odoo
 
-  db:
-    image: postgres:15
-    environment:
-      - POSTGRES_DB=postgres
-      - POSTGRES_USER=odoo
-      - POSTGRES_PASSWORD=odoo
+  postgres:
+    image: postgres:13
+    env_file: .env
     volumes:
-      - db-data:/var/lib/postgresql/data
-    restart: always
+      - db:/var/lib/postgresql/data/pgdata
 
 volumes:
-  odoo-data:
-  db-data:
+  data:
+  data:
