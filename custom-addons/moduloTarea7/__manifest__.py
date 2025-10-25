@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "Módulos",
+    'name': "moduloTarea7",
 
-    'summary': "Módulo tarea 7",
+    'summary': "Modulo tarea 7",
 
     'description': """
-Módulo de ejemplo para realizar la tarea 7 de Odoo
+Modulo de ejemplo para realizar la tarea 7 de Odoo
     """,
 
     'author': "AllKeysHUB",
