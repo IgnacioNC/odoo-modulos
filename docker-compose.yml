@@ -14,9 +14,20 @@ services:
   postgres:
     image: postgres:13
     env_file: .env
+    ports:
+      - "5432:5432"
     volumes:
       - db:/var/lib/postgresql/data/pgdata
 
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: always
+    ports:
+      - "8080:80"
+    env_file: .env
+    depends_on:
+      - postgres
+
 volumes:
   data:
-  data:
+  db:
