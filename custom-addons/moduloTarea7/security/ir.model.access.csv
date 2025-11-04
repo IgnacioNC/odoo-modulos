@@ -1,2 +1,4 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_modulos_modulos,modulos.modulos,model_modulos_modulos,base.group_user,1,1,1,1
+access_modulos_ejemplo_general,access_modulos_ejemplo_general,model_modulos_ejemplo,,0,0,0,0
+access_modulos_ejemplo_user,access_modulos_ejemplo_user,model_modulos_ejemplo,moduloTarea7.group_mimodulo_user,1,1,0,0
+access_modulos_ejemplo_admin,access_modulos_ejemplo_admin,model_modulos_ejemplo,moduloTarea7.group_mimodulo_admin,1,1,1,1
