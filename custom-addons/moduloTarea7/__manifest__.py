@@ -24,8 +24,9 @@ Modulo de ejemplo para realizar la tarea 7 de Odoo
     'data': [
 	'security/security.xml',
         'security/ir.model.access.csv',
-        'views/views.xml',
-        'views/templates.xml',
+	'views/moduloTarea7_view.xml'
+        #'views/views.xml',
+        #'views/templates.xml',
     ],
     'installable': True,
     'application': True,
