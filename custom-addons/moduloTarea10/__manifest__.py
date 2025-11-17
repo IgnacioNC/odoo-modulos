@@ -23,7 +23,7 @@ Descripción del módulo de la tarea 10
     # always loaded
     'data': [
         'security/security.xml',
-        'security/ir.model.access.csv'
+        'security/access_rights.xml'
         #'views/views.xml',
         #'views/templates.xml'
     ],
