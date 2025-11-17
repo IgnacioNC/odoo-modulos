@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <record id="group_user_advanced" model="res.groups">
+    <record id="group_user_advanced_test" model="res.groups">
         <field name="name">Usuario Avanzado</field>
         <field name="category_id" ref="base.module_category_tools"/>
         <field name="comment">El usuario puede leer y modificar registros, pero no crear ni eliminar.</field>
