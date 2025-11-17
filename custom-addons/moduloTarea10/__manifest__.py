@@ -18,7 +18,7 @@ Descripción del módulo de la tarea 10
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base','hr'],
+    'depends': ['base','stock'],
 
     # always loaded
         'data': [
