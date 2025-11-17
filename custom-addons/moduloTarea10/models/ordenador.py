@@ -1,4 +1,6 @@
-from odoo import models, fields, api, date, ValidationError
+from odoo import models, fields, api
+from odoo.exceptions import ValidationError
+from datetime import date
 
 class Ordenador(models.Model):
     _name = 'modulotarea10.ordenador'
@@ -22,5 +24,5 @@ class Ordenador(models.Model):
         for record in self:
             record.total_price = sum(record.components_ids.mapped('price'))
 
-    total_price = fields.Float(string="Precio total", compute="_compute_total", store=True)
+    total_price = fields.Monetary(string="Precio Total", compute="_calcular_total", store=True)
 
