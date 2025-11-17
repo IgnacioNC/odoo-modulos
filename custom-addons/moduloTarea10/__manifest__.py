@@ -28,6 +28,6 @@ Descripción del módulo de la tarea 10
         'views/templates.xml',
     ],
     'installable': True,
-    'application': True,
+    'application': True
 }
 
