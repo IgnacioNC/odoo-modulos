@@ -26,3 +26,10 @@ class Ordenador(models.Model):
 
     total_price = fields.Monetary(string="Precio Total", compute="_calcular_total", store=True)
 
+    currency_id = fields.Many2one(
+        'res.currency',
+        default=lambda self: self.env.company.currency_id.id,
+        required=True
+    )
+
+
