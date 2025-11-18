@@ -10,9 +10,9 @@
           <field name="num_pc"/>
           <field name="user_id"/>
           <field name="components_ids"/>
+          <field name="incidences"/>
           <field name="ultima_mod"/>
           <field name="total_price"/>
-          <field name="incidences"/>
         </list>
       </field>
     </record>
@@ -26,7 +26,7 @@
 
     <!-- server action to the one above -->
     <record model="ir.actions.server" id="modulotarea10_action_server">
-      <field name="name">modulotarea7 server</field>
+      <field name="name">modulotarea10 server</field>
       <field name="model_id" ref="model_modulotarea10_ordenador"/>
       <field name="state">code</field>
       <field name="code">
