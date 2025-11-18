@@ -7,9 +7,9 @@
       <field name="model">modulotarea10.componente</field>
       <field name="arch" type="xml">
         <list string="Componentes">
-          <field name="Nombre"/>
-          <field name="Especificaciones"/>
-          <field name="Precio"/>
+          <field name="name"/>
+          <field name="specs"/>
+          <field name="price"/>
         </list>
       </field>
     </record>
