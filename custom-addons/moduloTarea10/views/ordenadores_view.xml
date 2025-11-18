@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+    <record model="ir.ui.view" id="modulotarea10_ordenador_view_tree">
+      <field name="name">modulotarea10.ordenador.view.tree</field>
+      <field name="model">modulotarea10.ordenador</field>
+      <field name="arch" type="xml">
+        <list string="Ordenadores">
+          <field name="Número"/>
+          <field name="Usuario"/>
+          <field name="Componente"/>
+          <field name="Última Modificación"/>
+          <field name="Precio Total"/>
+          <field name="Incidencias"/>
+        </list>
+      </field>
+    </record>
+
+    <!-- actions opening views on models -->
+    <record model="ir.actions.act_window" id="modulotarea10_action_window">
+      <field name="name">REGISTRO ORDENADORES</field>
+      <field name="res_model">modulotarea10.ordenador</field>
+      <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- server action to the one above -->
+    <record model="ir.actions.server" id="modulotarea10_action_server">
+      <field name="name">modulotarea7 server</field>
+      <field name="model_id" ref="model_modulotarea10_ordenador"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "list,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+
+    <!-- Top menu item -->
+    <menuitem name="Ordenadores" id="modulotarea10_menu_root"/>
+
+    <!-- menu categories -->
+    <menuitem name="Registros Ordenadores" id="modulotarea10_menu_1" parent="modulotarea10_menu_root"/>
+
+    <!-- actions -->
+    <menuitem name="Lista de registros" id="modulotarea10_menu_1_list"
+              parent="modulotarea10_menu_1"
+              action="modulotarea10_action_window"/>
+  </data>
+</odoo>
