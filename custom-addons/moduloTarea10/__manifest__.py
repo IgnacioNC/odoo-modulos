@@ -25,7 +25,7 @@ Descripción del módulo de la tarea 10
         'security/security.xml',
         'security/access_rights.xml',
         'views/ordenadores_view.xml',
-        'views/componentes_view.xml'
+        #'views/componentes_view.xml'
     ],
     'installable': True,
     'application': True
