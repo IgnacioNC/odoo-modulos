@@ -10,9 +10,9 @@
           <field name="num_pc"/>
           <field name="user_id"/>
           <field name="components_ids"/>
-          <field name="incidences"/>
           <field name="ultima_mod"/>
           <field name="total_price"/>
+          <field name="incidences"/>
         </list>
       </field>
     </record>
