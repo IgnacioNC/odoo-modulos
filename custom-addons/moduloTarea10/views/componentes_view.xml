@@ -35,15 +35,12 @@
       </field>
     </record>
 
-    <!-- Top menu item -->
-    <menuitem name="Componentes" id="modulotarea10_menu_root"/>
-
     <!-- menu categories -->
-    <menuitem name="Registros Componentes" id="modulotarea10_menu_1" parent="modulotarea10_menu_root"/>
+    <menuitem name="Registros Componentes" id="modulotarea10_menu_2" parent="modulotarea10_menu_root"/>
 
     <!-- actions -->
-    <menuitem name="Lista de registros" id="modulotarea10_menu_1_list"
-              parent="modulotarea10_menu_1"
+    <menuitem name="Lista de registros" id="modulotarea10_menu_2_list"
+              parent="modulotarea10_menu_2"
               action="modulotarea10_action_window"/>
   </data>
 </odoo>
