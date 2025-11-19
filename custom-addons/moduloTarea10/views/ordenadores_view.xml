@@ -12,8 +12,8 @@
           <field name="components_ids"/>
           <field name="ultima_mod"/>
           <field name="total_price"/>
-          <field name="incidences"/>
           <field name="currency_id" invisible="1"/>
+          <field name="incidences"/>
         </list>
       </field>
     </record>
@@ -26,6 +26,7 @@
           <field name="name"/>
           <field name="specs"/>
           <field name="price"/>
+          <field name="currency_id" invisible="1"/>
         </list>
       </field>
     </record>
