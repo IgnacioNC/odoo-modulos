@@ -16,8 +16,14 @@ class Ordenador(models.Model):
         for record in self:
             if record.ultima_mod > date.today():
                 raise ValidationError("La fecha no puede ser futura")
-            
-    ultima_mod = fields.Date(string="Fecha última modificación", compute="_compute_total", store=True)        
+    
+    ultima_mod = fields.Date(string="Fecha última modificación", store=True)
+
+    def create(self, vals):
+        if not vals.get('ultima_mod'):
+            vals['ultima_mod'] = fields.Date.today()
+        return super().create(vals)
+
 
     @api.depends('components_ids.price')
     def _compute_total(self):
