@@ -22,7 +22,7 @@ Descripción del módulo de la tarea 10
 
     # always loaded
     'data': [
-        'security/ir.model.access.csv'
+        'security/ir.model.access.csv',
         'security/security.xml',
         #'security/access_rights.xml',
         'views/ordenadores_view.xml',
