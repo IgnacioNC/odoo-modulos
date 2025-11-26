@@ -22,7 +22,7 @@ Descripción del módulo de la tarea 11
 
     # always loaded
     'data': [
-        'scurity/ir.model.access.csv'
+        'security/ir.model.access.csv'
         'security/security.xml',
         #'security/access_rights.xml',
         'views/ordenadores_view.xml',
