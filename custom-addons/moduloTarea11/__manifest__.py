@@ -23,7 +23,7 @@ Descripción del módulo de la tarea 11
     # always loaded
     'data': [
         'security/security.xml',
-        #'security/access_rights.xml',
+        'security/access_rights.xml',
         'views/ordenadores_view.xml',
         #'views/componentes_view.xml'
     ],
