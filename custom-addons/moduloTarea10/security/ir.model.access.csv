@@ -1,6 +1,6 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_componente_user,access_componente_user,model_modulotarea10_componente,modulotarea10.group_user_advanced,1,1,0,0
-access_componente_admin,access_componente_admin,model_modulotarea10_componente,modulotarea10.group_user_admin,1,1,1,1
+access_componente_user,access_componente_user,model_modulotarea10_componente,group_user_advanced,1,1,0,0
+access_componente_admin,access_componente_admin,model_modulotarea10_componente,group_user_admin,1,1,1,1
 
-access_ordenador_user,access_ordenador_user,model_modulotarea10_ordenador,modulotarea10.group_user_advanced,1,1,0,0
-access_ordenador_admin,access_ordenador_admin,model_modulotarea10_ordenador,modulotarea10.group_user_admin,1,1,1,1
+access_ordenador_user,access_ordenador_user,model_modulotarea10_ordenador,group_user_advanced,1,1,0,0
+access_ordenador_admin,access_ordenador_admin,model_modulotarea10_ordenador,group_user_admin,1,1,1,1
