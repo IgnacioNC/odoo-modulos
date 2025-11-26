@@ -6,8 +6,8 @@ class Ordenador(models.Model):
     _name = 'modulotarea10.ordenador'
     _description = 'Ordenador (Nº Equipos, Usuarios, Lista De Piezas, Última Modificación, Precio Total e Incidencias).'
 
-    num_pc = fields.Char(string="Nombre", required=True)
-    user_id = fields.Many2one("res.users",string="Usuario")
+    num_seguimiento = fields.Char(string="Nombre", required=True)
+    remitente = fields.Many2one("res.partner",string="Usuario")
     components_ids = fields.Many2many("modulotarea10.componente", string="Componentes")
     incidences = fields.Text(string="Incidencias")
 
