@@ -12,7 +12,7 @@ class Camion(models.Model):
     historial_ids = fields.One2many('paqueteria.camion.historial', 'camion_id', string='Historial de Conductores')
 
     fecha_itv = fields.Date(string='Fecha de la última ITV')
-    
+
     notas_mantenimiento = fields.Text(string='Notas de mantenimiento')
 
     paquete_ids = fields.One2many('paqueteria.paquete', 'camion_id', string='Paquetes transportados')
