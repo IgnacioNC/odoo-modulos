@@ -32,8 +32,7 @@ class Camion(models.Model):
     @api.onchange('conductor_actual_id')
     def _onchange_conductor_actual_id(self):
         """
-        Cuando un usuario cambia el conductor actual
-        se añade el conductor anterior al historial.
+        Actualización temporal del historial de conductores.
         """
         if not self._origin:
             return
@@ -45,3 +44,17 @@ class Camion(models.Model):
             if anterior not in self.antiguos_conductores_ids:
                 self.antiguos_conductores_ids += anterior
 
+    def write(self, vals):
+        """
+        Guardamos el nuevo historial de conductores.
+        """
+        if 'conductor_actual_id' in vals:
+            nuevo = self.env['hr.employee'].browse(vals['conductor_actual_id'])
+
+            for camion in self:
+                anterior = camion.conductor_actual_id
+
+                if anterior and anterior != nuevo:
+                    camion.antiguos_conductores_ids |= anterior
+
+        return super(Camion, self).write(vals)
