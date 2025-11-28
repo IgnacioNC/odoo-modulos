@@ -23,9 +23,8 @@ Descripción del módulo de la tarea 10
     # always loaded
     'data': [
         'security/security.xml',
-        'security/access_rights.xml',
+        'security/ir.model.access.csv',
         'views/ordenadores_view.xml',
-        #'views/componentes_view.xml'
     ],
     'installable': True,
     'application': True
