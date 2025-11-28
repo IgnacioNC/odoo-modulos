@@ -1,0 +1,194 @@
+<odoo>
+    <data>
+
+        <!-- CAMIÓN - FORMULARIO -->
+
+        <record id="view_camion_form" model="ir.ui.view">
+            <field name="name">paqueteria.camion.form</field>
+            <field name="model">paqueteria.camion</field>
+            <field name="arch" type="xml">
+                <form string="Camión">
+                    <sheet>
+                        <group>
+                            <group string="Datos del Vehículo">
+                                <field name="matricula"/>
+                                <field name="fecha_itv"/>
+                            </group>
+                            <group string="Conductor">
+                                <field name="conductor_actual_id"/>
+                            </group>
+                        </group>
+
+                        <notebook>
+                            <page string="Paquetes Transportados">
+                                <field name="paquete_ids">
+                                    <tree>
+                                        <field name="numero_seguimiento"/>
+                                        <field name="destinatario_id"/>
+                                        <field name="municipio"/>
+                                    </tree>
+                                </field>
+                            </page>
+
+                            <page string="Mantenimiento">
+                                <field name="notas_mantenimiento"/>
+                            </page>
+
+                            <page string="Historial de Conductores">
+                                <field name="antiguos_conductores_ids"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!--  CAMIÓN - TREE -->
+
+        <record id="view_camion_tree" model="ir.ui.view">
+            <field name="name">paqueteria.camion.tree</field>
+            <field name="model">paqueteria.camion</field>
+            <field name="arch" type="xml">
+                <tree string="Camiones">
+                    <field name="matricula"/>
+                    <field name="conductor_actual_id"/>
+                    <field name="fecha_itv"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- PAQUETE - FORMULARIO  -->
+
+        <record id="view_paquete_form" model="ir.ui.view">
+            <field name="name">paqueteria.paquete.form</field>
+            <field name="model">paqueteria.paquete</field>
+            <field name="arch" type="xml">
+                <form string="Paquete">
+                    <sheet>
+
+                        <div class="oe_title">
+                            <h1>
+                                <field name="numero_seguimiento" placeholder="N.º de Seguimiento"/>
+                            </h1>
+                        </div>
+
+                        <group>
+                            <group string="Logística">
+                                <field name="camion_id"/>
+                                <field name="remitente_id"/>
+                                <field name="destinatario_id"/>
+                            </group>
+
+                            <group string="Dirección de Entrega">
+                                <field name="calle"/>
+                                <field name="numero"/>
+
+                                <group>
+                                    <field name="municipio"/>
+                                    <field name="region_id"/>
+                                </group>
+
+                                <field name="pais_id"/>
+                                <field name="datos_adicionales"/>
+                            </group>
+                        </group>
+
+                        <notebook>
+                            <page string="Estados del Envío">
+                                <field name="estado_envio_ids">
+                                    <tree editable="bottom">
+                                        <field name="fecha"/>
+                                        <field name="estado"/>
+                                        <field name="notas"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- PAQUETE - TREE -->
+
+        <record id="view_paquete_tree" model="ir.ui.view">
+            <field name="name">paqueteria.paquete.tree</field>
+            <field name="model">paqueteria.paquete</field>
+            <field name="arch" type="xml">
+                <tree string="Paquetes">
+                    <field name="numero_seguimiento"/>
+                    <field name="destinatario_id"/>
+                    <field name="municipio"/>
+                    <field name="camion_id"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <!-- ESTADO ENVÍO - FORMULARIO -->
+
+        <record id="view_estado_envio_form" model="ir.ui.view">
+            <field name="name">paqueteria.estado_envio.form</field>
+            <field name="model">paqueteria.estado_envio</field>
+            <field name="arch" type="xml">
+                <form string="Estado del Envío">
+                    <sheet>
+                        <group>
+                            <field name="paquete_id"/>
+                            <field name="fecha"/>
+                            <field name="estado"/>
+                            <field name="notas"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- ESTADO ENVÍO - TREE -->
+
+        <record id="view_estado_envio_tree" model="ir.ui.view">
+            <field name="name">paqueteria.estado_envio.tree</field>
+            <field name="model">paqueteria.estado_envio</field>
+            <field name="arch" type="xml">
+                <tree string="Estados de Envío">
+                    <field name="paquete_id"/>
+                    <field name="fecha"/>
+                    <field name="estado"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- ACCIONES Y MENÚS -->
+
+        <record id="action_paquetes" model="ir.actions.act_window">
+            <field name="name">Paquetes</field>
+            <field name="res_model">paqueteria.paquete</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="action_camiones" model="ir.actions.act_window">
+            <field name="name">Camiones</field>
+            <field name="res_model">paqueteria.camion</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="action_estados_envio" model="ir.actions.act_window">
+            <field name="name">Estados de Envío</field>
+            <field name="res_model">paqueteria.estado_envio</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_paqueteria_root" name="Gestión Transportes" sequence="10"/>
+
+        <menuitem id="menu_paquetes" parent="menu_paqueteria_root"
+                  name="Paquetes" action="action_paquetes"/>
+
+        <menuitem id="menu_camiones" parent="menu_paqueteria_root"
+                  name="Camiones" action="action_camiones"/>
+
+        <menuitem id="menu_estados_envio" parent="menu_paqueteria_root"
+                  name="Estados Envío" action="action_estados_envio"/>
+
+    </data>
+  </odoo>

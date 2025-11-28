@@ -1,42 +1,32 @@
-from odoo import models, fields, api
-from odoo.exceptions import ValidationError
-from datetime import date
+from odoo import models, fields
 
-class Ordenador(models.Model):
-    _name = 'modulotarea10.ordenador'
-    _description = 'Ordenador (Nº Equipos, Usuarios, Lista De Piezas, Última Modificación, Precio Total e Incidencias).'
+class Paquete(models.Model):
+    _name = 'paqueteria.paquete'
+    _description = 'Paquete de Envío'
+    _rec_name = 'numero_seguimiento'
 
-    num_seguimiento = fields.Char(string="Nombre", required=True)
-    remitente = fields.Many2one("res.partner",string="Usuario")
-    components_ids = fields.Many2many("modulotarea10.componente", string="Componentes")
-    incidences = fields.Text(string="Incidencias")
+    numero_seguimiento = fields.Char(string='N.º de Seguimiento', required=True)
 
-    @api.constrains('ultima_mod')
-    def _comprobar_fecha(self):
-        for record in self:
-            if record.ultima_mod > date.today():
-                raise ValidationError("La fecha no puede ser futura")
-    
-    ultima_mod = fields.Date(string="Fecha última modificación", store=True)
+    remitente_id = fields.Many2one('res.partner', string='Remitente', required=True)
+    destinatario_id = fields.Many2one('res.partner', string='Destinatario', required=True)
 
-    def create(self, vals):
-        if not vals.get('ultima_mod'):
-            vals['ultima_mod'] = fields.Date.today()
-        return super().create(vals)
+    pais_id = fields.Many2one('res.country', string='País')
+    region_id = fields.Many2one('res.country.state', string='Región/Provincia')
+    municipio = fields.Char(string='Municipio')
+    calle = fields.Char(string='Calle')
+    numero = fields.Char(string='Número')
+    datos_adicionales = fields.Text(string='Datos adicionales')
 
+    camion_id = fields.Many2one('paqueteria.camion', string='Camión Actual')
 
-    @api.depends('components_ids.price')
-    def _compute_total(self):
-        for record in self:
-            record.total_price = sum(record.components_ids.mapped('price'))
-
-    total_price = fields.Monetary(string="Precio Total", compute="_compute_total", store=True, currency_field='currency_id')
-
-    currency_id = fields.Many2one(
-        'res.currency',
-        string="Moneda",
-        default=lambda self: self.env.company.currency_id.id,
-        required=True
+    estado_envio_ids = fields.One2many(
+        'paqueteria.estado_envio',
+        'paquete_id',
+        string='Historial del Envío'
     )
 
-
+    _sql_constraints = [
+        ('unique_tracking_number',
+         'unique(numero_seguimiento)',
+         'El número de seguimiento debe ser único.')
+    ]

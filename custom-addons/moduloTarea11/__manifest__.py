@@ -14,18 +14,17 @@ Descripción del módulo de la tarea 11
     # Categories can be used to filter modules in modules listing
     # Check https://github.com/odoo/odoo/blob/15.0/odoo/addons/base/data/ir_module_category_data.xml
     # for the full list
-    'category': 'Inventory',
+    'category': 'Operations',
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'stock'],
+    'depends': ['base', 'hr'],
 
     # always loaded
     'data': [
         'security/security.xml',
-        'security/access_rights.xml',
-        'views/ordenadores_view.xml',
-        #'views/componentes_view.xml'
+        'security/ir.model.access.csv',
+        'views/paqueteria_views.xml',
     ],
     'installable': True,
     'application': True
