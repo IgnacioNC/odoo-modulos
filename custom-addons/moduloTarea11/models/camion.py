@@ -9,52 +9,29 @@ class Camion(models.Model):
 
     conductor_actual_id = fields.Many2one('hr.employee', string='Conductor actual')
 
-    antiguos_conductores_ids = fields.Many2many(
-        'hr.employee',
-        string='Antiguos conductores'
-    )
+    historial_ids = fields.One2many('paqueteria.camion.historial', 'camion_id', string='Historial de Conductores')
 
     fecha_itv = fields.Date(string='Fecha de la última ITV')
+    
     notas_mantenimiento = fields.Text(string='Notas de mantenimiento')
 
-    paquete_ids = fields.One2many(
-        'paqueteria.paquete',
-        'camion_id',
-        string='Paquetes transportados'
-    )
+    paquete_ids = fields.One2many('paqueteria.paquete', 'camion_id', string='Paquetes transportados')
 
-    _sql_constraints = [
-        ('unique_matricula',
-         'unique(matricula)',
-         'La matrícula debe ser única.')
-    ]
-
-    @api.onchange('conductor_actual_id')
-    def _onchange_conductor_actual_id(self):
-        """
-        Actualización temporal del historial de conductores.
-        """
-        if not self._origin:
-            return
-
-        anterior = self._origin.conductor_actual_id
-        nuevo = self.conductor_actual_id
-
-        if anterior and anterior != nuevo:
-            if anterior not in self.antiguos_conductores_ids:
-                self.antiguos_conductores_ids += anterior
+    _sql_constraints = [('unique_matricula', 'unique(matricula)', 'La matrícula debe ser única.')]
 
     def write(self, vals):
-        """
-        Guardamos el nuevo historial de conductores.
-        """
+        #Cuando cambia el conductor actual guarda el conductor anterior en el historial.
         if 'conductor_actual_id' in vals:
-            nuevo = self.env['hr.employee'].browse(vals['conductor_actual_id'])
+            nuevo = vals['conductor_actual_id']
 
             for camion in self:
                 anterior = camion.conductor_actual_id
 
-                if anterior and anterior != nuevo:
-                    camion.antiguos_conductores_ids |= anterior
+                # Si había conductor anterior y es distinto del nuevo se guarda een el historial
+                if anterior and anterior.id != nuevo:
+                    self.env['paqueteria.camion.historial'].create({
+                        'camion_id': camion.id,
+                        'conductor_id': anterior.id,
+                    })
 
         return super(Camion, self).write(vals)

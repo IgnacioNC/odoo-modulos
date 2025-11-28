@@ -4,17 +4,9 @@ class EstadoEnvio(models.Model):
     _name = 'paqueteria.estado_envio'
     _description = 'Estado del envío'
 
-    paquete_id = fields.Many2one(
-        'paqueteria.paquete',
-        string='Paquete',
-        required=True
-    )
+    paquete_id = fields.Many2one('paqueteria.paquete', string='Paquete', required=True)
 
-    fecha = fields.Datetime(
-        string='Fecha de entrada',
-        default=fields.Datetime.now,
-        required=True
-    )
+    fecha = fields.Datetime(string='Fecha de entrada', default=fields.Datetime.now, required=True)
 
     estado = fields.Selection(
         [

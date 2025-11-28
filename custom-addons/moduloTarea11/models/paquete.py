@@ -19,14 +19,7 @@ class Paquete(models.Model):
 
     camion_id = fields.Many2one('paqueteria.camion', string='Camión Actual')
 
-    estado_envio_ids = fields.One2many(
-        'paqueteria.estado_envio',
-        'paquete_id',
-        string='Historial del Envío'
-    )
+    estado_envio_ids = fields.One2many('paqueteria.estado_envio', 'paquete_id', string='Historial del Envío')
 
-    _sql_constraints = [
-        ('unique_tracking_number',
-         'unique(numero_seguimiento)',
-         'El número de seguimiento debe ser único.')
-    ]
+    _sql_constraints = [('unique_tracking_number', 'unique(numero_seguimiento)', 
+                         'El número de seguimiento debe ser único.')]
