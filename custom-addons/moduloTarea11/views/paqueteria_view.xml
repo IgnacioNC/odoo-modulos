@@ -48,13 +48,9 @@
               </page>
 
               <page string="Historial de Conductores">
-                <field name="antiguos_conductores_ids">
-                  <list>
-                    <field name="name"/>
-                    <field name="work_email"/>
-                  </list>
-                </field>
+                <field name="antiguos_conductores_ids" widget="many2many_tags"/>
               </page>
+
 
             </notebook>
           </sheet>
