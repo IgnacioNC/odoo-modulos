@@ -45,4 +45,3 @@ class Camion(models.Model):
             if anterior not in self.antiguos_conductores_ids:
                 self.antiguos_conductores_ids += anterior
 
-        return super().write(vals)
