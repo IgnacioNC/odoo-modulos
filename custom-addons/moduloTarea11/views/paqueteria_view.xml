@@ -51,10 +51,11 @@
                 <field name="historial_ids">
                     <list editable="bottom">
                         <field name="conductor_id"/>
-                        <field name="conductor_id.work_email" string="Correo"/>
+                        <field name="work_email"/>
                         <field name="fecha"/>
                     </list>
                 </field>
+
              </page>
 
             </notebook>

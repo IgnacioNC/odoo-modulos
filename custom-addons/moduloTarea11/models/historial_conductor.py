@@ -9,4 +9,6 @@ class HistorialConductor(models.Model):
 
     conductor_id = fields.Many2one('hr.employee', string="Conductor", required=True)
 
+    work_email = fields.Char(related='conductor_id.work_email', string='Correo', store=False)
+
     fecha = fields.Date(string="Fecha", required=True, default=fields.Date.today)
