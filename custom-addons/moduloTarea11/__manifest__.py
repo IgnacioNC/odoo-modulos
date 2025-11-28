@@ -24,7 +24,7 @@ Descripción del módulo de la tarea 11
     'data': [
         'security/security.xml',
         'security/ir.model.access.csv',
-        'views/paqueteria_views.xml',
+        'views/paqueteria_view.xml',
     ],
     'installable': True,
     'application': True
