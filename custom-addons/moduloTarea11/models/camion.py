@@ -1,4 +1,4 @@
-from odoo import models, fields
+from odoo import models, fields, api
 
 class Camion(models.Model):
     _name = 'paqueteria.camion'
@@ -28,3 +28,21 @@ class Camion(models.Model):
          'unique(matricula)',
          'La matrícula debe ser única.')
     ]
+
+    @api.onchange('conductor_actual_id')
+    def _onchange_conductor_actual_id(self):
+        """
+        Cuando un usuario cambia el conductor actual
+        se añade el conductor anterior al historial.
+        """
+        if not self._origin:
+            return
+
+        anterior = self._origin.conductor_actual_id
+        nuevo = self.conductor_actual_id
+
+        if anterior and anterior != nuevo:
+            if anterior not in self.antiguos_conductores_ids:
+                self.antiguos_conductores_ids += anterior
+
+        return super().write(vals)
