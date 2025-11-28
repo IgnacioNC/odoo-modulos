@@ -3,3 +3,4 @@
 from . import paquete
 from . import camion
 from . import estado_envio
+from . import historial_conductor
