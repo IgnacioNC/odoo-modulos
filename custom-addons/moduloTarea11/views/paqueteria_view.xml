@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+
+    <!-- explicit list view definition -->
+    <record id="view_camion_list" model="ir.ui.view">
+      <field name="name">paqueteria.camion.list</field>
+      <field name="model">paqueteria.camion</field>
+      <field name="arch" type="xml">
+        <list string="Camiones">
+          <field name="matricula"/>
+          <field name="conductor_actual_id"/>
+          <field name="fecha_itv"/>
+        </list>
+      </field>
+    </record>
+
+    <!-- explicit list view definition -->
+    <record id="view_camion_form" model="ir.ui.view">
+      <field name="name">paqueteria.camion.form</field>
+      <field name="model">paqueteria.camion</field>
+      <field name="arch" type="xml">
+        <form string="Camión">
+          <sheet>
+            <group>
+              <group string="Datos del Vehículo">
+                <field name="matricula"/>
+                <field name="fecha_itv"/>
+              </group>
+              <group string="Conductor">
+                <field name="conductor_actual_id"/>
+              </group>
+            </group>
+
+            <notebook>
+              <page string="Paquetes Transportados">
+                <field name="paquete_ids">
+                  <list editable="bottom">
+                    <field name="numero_seguimiento"/>
+                    <field name="destinatario_id"/>
+                    <field name="municipio"/>
+                  </list>
+                </field>
+              </page>
+
+              <page string="Mantenimiento">
+                <field name="notas_mantenimiento"/>
+              </page>
+
+              <page string="Historial de Conductores">
+                <field name="historial_ids">
+                    <list editable="bottom">
+                        <field name="conductor_id"/>
+                        <field name="work_email" string="Correo"/>
+                        <field name="fecha"/>
+                    </list>
+                </field>
+            </page>
+
+
+            </notebook>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <!-- explicit list view definition -->
+    <record id="view_paquete_list" model="ir.ui.view">
+      <field name="name">paqueteria.paquete.list</field>
+      <field name="model">paqueteria.paquete</field>
+      <field name="arch" type="xml">
+        <list string="Paquetes">
+          <field name="numero_seguimiento"/>
+          <field name="destinatario_id"/>
+          <field name="municipio"/>
+          <field name="camion_id"/>
+        </list>
+      </field>
+    </record>
+
+    <!-- explicit list view definition -->
+    <record id="view_paquete_form" model="ir.ui.view">
+      <field name="name">paqueteria.paquete.form</field>
+      <field name="model">paqueteria.paquete</field>
+      <field name="arch" type="xml">
+        <form string="Paquete">
+          <sheet>
+
+            <div class="oe_title">
+              <h1>
+                <field name="numero_seguimiento"/>
+              </h1>
+            </div>
+
+            <group>
+              <group string="Logística">
+                <field name="camion_id"/>
+                <field name="remitente_id"/>
+                <field name="destinatario_id"/>
+              </group>
+
+              <group string="Dirección de Entrega">
+                <field name="calle"/>
+                <field name="numero"/>
+                <group>
+                  <field name="municipio"/>
+                  <field name="region_id"/>
+                </group>
+                <field name="pais_id"/>
+                <field name="datos_adicionales"/>
+              </group>
+            </group>
+
+            <notebook>
+              <page string="Estados del Envío">
+                <field name="estado_envio_ids">
+                  <list editable="bottom">
+                    <field name="fecha"/>
+                    <field name="estado"/>
+                    <field name="notas"/>
+                  </list>
+                </field>
+              </page>
+            </notebook>
+
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <!-- explicit list view definition -->
+    <record id="view_estado_envio_list" model="ir.ui.view">
+      <field name="name">paqueteria.estado_envio.list</field>
+      <field name="model">paqueteria.estado_envio</field>
+      <field name="arch" type="xml">
+        <list string="Estados de Envío">
+          <field name="paquete_id"/>
+          <field name="fecha"/>
+          <field name="estado"/>
+        </list>
+      </field>
+    </record>
+
+    <!-- explicit list view definition -->
+    <record id="view_estado_envio_form" model="ir.ui.view">
+      <field name="name">paqueteria.estado_envio.form</field>
+      <field name="model">paqueteria.estado_envio</field>
+      <field name="arch" type="xml">
+        <form string="Estado del Envío">
+          <sheet>
+            <group>
+              <field name="paquete_id"/>
+              <field name="fecha"/>
+              <field name="estado"/>
+              <field name="notas"/>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <!-- actions opening views on models -->
+    <record id="action_paquetes" model="ir.actions.act_window">
+      <field name="name">Paquetes</field>
+      <field name="res_model">paqueteria.paquete</field>
+      <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- actions opening views on models -->
+    <record id="action_camiones" model="ir.actions.act_window">
+      <field name="name">Camiones</field>
+      <field name="res_model">paqueteria.camion</field>
+      <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- actions opening views on models -->
+    <record id="action_estados_envio" model="ir.actions.act_window">
+      <field name="name">Estados de Envío</field>
+      <field name="res_model">paqueteria.estado_envio</field>
+      <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- Top menu item -->
+    <menuitem id="menu_paqueteria_root" name="Gestión Transportes" sequence="10"/>
+
+    <!-- menu categories -->
+    <menuitem id="menu_paquetes" parent="menu_paqueteria_root"
+              name="Paquetes" action="action_paquetes"/>
+
+    <!-- menu categories -->
+    <menuitem id="menu_camiones" parent="menu_paqueteria_root"
+              name="Camiones" action="action_camiones"/>
+
+    <!-- menu categories -->
+    <menuitem id="menu_estados_envio" parent="menu_paqueteria_root"
+              name="Estados Envío" action="action_estados_envio"/>
+
+  </data>
+</odoo>

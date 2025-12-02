@@ -1,0 +1,13 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+access_paquete_user,access_paquete_user,model_paqueteria_paquete,moduloTarea11.group_user_advanced,1,1,0,0
+access_paquete_admin,access_paquete_admin,model_paqueteria_paquete,moduloTarea11.group_user_admin,1,1,1,1
+
+access_camion_user,access_camion_user,model_paqueteria_camion,moduloTarea11.group_user_advanced,1,1,0,0
+access_camion_admin,access_camion_admin,model_paqueteria_camion,moduloTarea11.group_user_admin,1,1,1,1
+
+access_estado_envio_user,access_estado_envio_user,model_paqueteria_estado_envio,moduloTarea11.group_user_advanced,1,1,0,0
+access_estado_envio_admin,access_estado_envio_admin,model_paqueteria_estado_envio,moduloTarea11.group_user_admin,1,1,1,1
+
+access_camion_historial,access_camion_historial,model_paqueteria_camion_historial,moduloTarea11.group_user_advanced,1,1,0,0
+access_camion_historial,access_camion_historial,model_paqueteria_camion_historial,moduloTarea11.group_user_admin,1,1,1,1
