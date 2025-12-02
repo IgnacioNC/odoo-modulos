@@ -106,12 +106,10 @@ Incluye formularios y listas para:
 
 Menú principal:
 
-```
 Paquetería
   - Paquetes
   - Camiones
   - Estados de Envío
-```
 
 ---
 
