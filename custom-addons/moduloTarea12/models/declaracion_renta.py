@@ -1,5 +1,6 @@
 from odoo import models, fields, api
 from odoo.exceptions import ValidationError
+from datetime import datetime
 
 class DeclaracionRenta(models.Model):
     _name = "empleado.renta"
@@ -10,7 +11,7 @@ class DeclaracionRenta(models.Model):
 
     nominas_ids = fields.Many2many("nomina.empleado", string="Nóminas")
 
-    max_nominas = 1
+    max_nominas = 14
 
     sueldo_bruto_total = fields.Float(
         compute="_compute_totales", store=True
@@ -31,3 +32,13 @@ class DeclaracionRenta(models.Model):
             if len(record.nominas_ids) > record.max_nominas:
                 raise ValidationError("Solo se permiten un máximo de " + str(record.max_nominas) + " nóminas vinculadas.")
 
+
+    @api.constrains("nomina_ids","year")
+    def _check_nomina_year(self):
+        for record in self:
+            for nomina in record.nominas_ids:
+                if nomina.fecha:
+                    nomina_year = nomina.fecha.year
+                    if nomina_year != record.year:
+                        raise ValidationError("La nómina del " + nomina.fecha + " pertenece al año  " + 
+                        record.nomina.fecha.year + ", pero esta declaración es del año " + record.year + ".")
