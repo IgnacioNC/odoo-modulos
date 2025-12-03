@@ -1,7 +1,5 @@
 # Gestión de Camiones y Paquetería – Módulo Odoo Tarea 11
 
-## Descripción
-
 Este módulo es para gestionar una empresa de transporte.  
 Incluye la creación de paquetes, camiones, historial de conductores y actualizaciones del envío.
 
