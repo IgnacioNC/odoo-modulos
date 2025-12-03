@@ -29,5 +29,5 @@ class DeclaracionRenta(models.Model):
     def _check_max_nominas(self):
         for record in self:
             if len(record.nominas_ids) > record.max_nominas:
-                raise ValidationError("Solo se permiten un máximo de 3 nóminas vinculadas.")
+                raise ValidationError("Solo se permiten un máximo de " + record.max_nominas " + nóminas vinculadas.")
 
