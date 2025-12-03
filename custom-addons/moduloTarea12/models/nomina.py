@@ -82,7 +82,7 @@ class Nomina(models.Model):
 
     @api.depends("empleado_id", "fecha")
     def _compute_name(self):
-        for recordord in self:
+        for record in self:
             if record.empleado_id and record.fecha:
                 record.name = f"{record.empleado_id.name} – {record.fecha.strftime('%B %Y')}"
             elif record.empleado_id:
