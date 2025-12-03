@@ -4,6 +4,7 @@ from datetime import date
 class Nomina(models.Model):
     _name = "nomina.empleado"
     _description = "Nómina de empleado"
+    _rec_name = "empleado_id"
 
     empleado_id = fields.Many2one("hr.employee", string="Empleado", required=True)
     sueldo_base = fields.Float(string="Sueldo Base", required=True)
@@ -49,8 +50,6 @@ class Nomina(models.Model):
         string="Total Neto",
         compute="_compute_total_sueldo"
     )
-
-    # ---- CÁLCULOS ----
 
     @api.depends("sueldo_base", "bonificacion_ids", "irpf")
     def _compute_irpf_pagado(self):
