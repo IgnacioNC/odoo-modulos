@@ -41,4 +41,4 @@ class DeclaracionRenta(models.Model):
                     nomina_year = nomina.fecha.year
                     if nomina_year != record.year:
                         raise ValidationError("La nómina del " + str(nomina.fecha) + " pertenece al año  " + 
-                        str(record.nomina.fecha.year) + ", pero esta declaración es del año " + str(record.year) + ".")
+                        str(nomina.fecha.year) + ", pero esta declaración es del año " + str(record.year) + ".")
