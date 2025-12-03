@@ -4,7 +4,7 @@ from datetime import date
 class Nomina(models.Model):
     _name = "nomina.empleado"
     _description = "Nómina de empleado"
-    _rec_name = "empleado_id"
+    _rec_name = "empleado_id","fecha"
 
     empleado_id = fields.Many2one("hr.employee", string="Empleado", required=True)
     sueldo_base = fields.Float(string="Sueldo Base", required=True)
