@@ -10,7 +10,7 @@ class DeclaracionRenta(models.Model):
 
     nominas_ids = fields.Many2many("nomina.empleado", string="Nóminas")
 
-    max_nominas = 0
+    max_nominas = 1
 
     sueldo_bruto_total = fields.Float(
         compute="_compute_totales", store=True
