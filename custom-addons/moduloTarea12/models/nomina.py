@@ -4,10 +4,11 @@ from datetime import date
 class Nomina(models.Model):
     _name = "nomina.empleado"
     _description = "Nómina de empleado"
-    _rec_name = "empleado_id","fecha"
+    _record_name = "name"
 
     empleado_id = fields.Many2one("hr.employee", string="Empleado", required=True)
     sueldo_base = fields.Float(string="Sueldo Base", required=True)
+    name = fields.Char(compute="_compute_name", store=True)
 
     bonificacion_ids = fields.One2many(
         "nomina.bonificacion", "nomina_id", string="Bonificaciones/Deducciones"
@@ -53,28 +54,38 @@ class Nomina(models.Model):
 
     @api.depends("sueldo_base", "bonificacion_ids", "irpf")
     def _compute_irpf_pagado(self):
-        for rec in self:
-            bruto = rec.sueldo_base + sum(
-                b.importe for b in rec.bonificacion_ids if b.importe > 0
+        for record in self:
+            bruto = record.sueldo_base + sum(
+                b.importe for b in record.bonificacion_ids if b.importe > 0
             )
-            rec.irpf_pagado = bruto * (rec.irpf / 100)
+            record.irpf_pagado = bruto * (record.irpf / 100)
 
     @api.depends("bonificacion_ids")
     def _compute_totales(self):
-        for rec in self:
-            rec.total_bonificaciones = sum(
-                b.importe for b in rec.bonificacion_ids if b.importe > 0
+        for record in self:
+            record.total_bonificaciones = sum(
+                b.importe for b in record.bonificacion_ids if b.importe > 0
             )
-            rec.total_deducciones = abs(
-                sum(b.importe for b in rec.bonificacion_ids if b.importe < 0)
+            record.total_deducciones = abs(
+                sum(b.importe for b in record.bonificacion_ids if b.importe < 0)
             )
 
     @api.depends("sueldo_base", "bonificacion_ids", "total_deducciones", "irpf_pagado")
     def _compute_total_sueldo(self):
-        for rec in self:
-            rec.total_sueldo = (
-                rec.sueldo_base
-                + rec.total_bonificaciones
-                - rec.total_deducciones
-                - rec.irpf_pagado
+        for record in self:
+            record.total_sueldo = (
+                record.sueldo_base
+                + record.total_bonificaciones
+                - record.total_deducciones
+                - record.irpf_pagado
             )
+
+    @api.depends("empleado_id", "fecha")
+    def _compute_name(self):
+        for recordord in self:
+            if record.empleado_id and record.fecha:
+                record.name = f"{record.empleado_id.name} – {record.fecha.strftime('%B %Y')}"
+            elif record.empleado_id:
+                record.name = record.empleado_id.name
+            else:
+                record.name = "Nómina"
