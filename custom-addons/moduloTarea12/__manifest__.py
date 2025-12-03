@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "moduloTarea11",
+    'name': "moduloTarea12",
 
     'summary': "Módulo tarea 12",
 
