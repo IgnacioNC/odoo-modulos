@@ -37,7 +37,7 @@
             </group>
 
             <notebook>
-              <page string="Nóminas Vinculadas">
+            <page string="Nóminas Vinculadas">
                 <field name="nominas_ids">
                     <tree editable="bottom">
                         <field name="name"/>
@@ -46,8 +46,8 @@
                         <field name="total_sueldo"/>
                     </tree>
                 </field>
+            </page>
 
-              </page>
             </notebook>
 
           </sheet>
