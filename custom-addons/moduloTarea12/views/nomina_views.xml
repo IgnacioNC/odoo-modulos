@@ -41,6 +41,10 @@
               </group>
             </group>
 
+            <group string="Declaración de Renta">
+              <field name="renta_id"/>
+            </group>
+
             <notebook>
 
               <page string="Bonificaciones y Deducciones">

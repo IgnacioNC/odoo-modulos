@@ -33,7 +33,7 @@ class DeclaracionRenta(models.Model):
                 raise ValidationError("Solo se permiten un máximo de " + str(record.max_nominas) + " nóminas vinculadas.")
 
 
-    @api.constrains("nomina_ids","year")
+    @api.constrains("nominas_ids","year")
     def _check_nomina_year(self):
         for record in self:
             for nomina in record.nominas_ids:
