@@ -36,7 +36,7 @@
 
               <group string="Datos económicos">
                 <field name="sueldo_base"/>
-                <field name="irpf"/>
+                <field name="irpf" widget="percentpie"/>
                 <field name="irpf_pagado" readonly="1"/>
               </group>
             </group>

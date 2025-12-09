@@ -16,7 +16,7 @@ class Nomina(models.Model):
         "nomina.bonificacion", "nomina_id", string="Bonificaciones/Deducciones"
     )
 
-    irpf = fields.Float(string="IRPF (%)", required=True)
+    irpf = fields.Float(string="IRPF (%)", default=0, required=True)
 
     irpf_pagado = fields.Float(
         string="IRPF Pagado (€)",
