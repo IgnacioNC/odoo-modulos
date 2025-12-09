@@ -22,21 +22,11 @@
       <field name="model">empleado.renta</field>
       <field name="arch" type="xml">
         <form string="Declaración Anual de Renta">
-          <sheet>
-
-            <group>
-              <group string="Datos Generales">
-                <field name="empleado_id"/>
-                <field name="year"/>
-              </group>
-
-              <group string="Cálculos">
-                <field name="sueldo_bruto_total" readonly="1"/>
-                <field name="impuestos_pagados" readonly="1"/>
-              </group>
-            </group>
-
-          </sheet>
+            <notebook>
+              <page string="Nóminas Vinculadas">
+                <field name="nominas_ids"/>
+              </page>
+            </notebook>
         </form>
       </field>
     </record>
