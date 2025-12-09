@@ -38,7 +38,15 @@
 
             <notebook>
               <page string="Nóminas Vinculadas">
-                <field name="nominas_ids"/>
+                <field name="nominas_ids">
+                    <tree editable="bottom">
+                        <field name="name"/>
+                        <field name="fecha"/>
+                        <field name="sueldo_base"/>
+                        <field name="total_sueldo"/>
+                    </tree>
+                </field>
+
               </page>
             </notebook>
 
