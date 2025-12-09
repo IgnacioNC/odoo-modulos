@@ -42,3 +42,12 @@ class DeclaracionRenta(models.Model):
                     if nomina_year != record.year:
                         raise ValidationError("La nómina del " + str(nomina.fecha) + " pertenece al año " + 
                         str(nomina.fecha.year) + ", pero esta declaración es del año " + str(record.year) + ".")
+                    
+    @api.constrains("nominas_ids", "empleado_id")
+    def _check_nominas_empleado(self):
+        for record in self:
+            for nomina in record.nominas_ids:
+                if nomina.empleado_id != record.empleado_id:
+                    raise ValidationError("La nómina " + str{nomina.name} + " pertenece a " str{nomina.empleado_id.name} + ", "
+                        "pero esta declaración es de " + str{record.empleado_id.name} + ".")
+           
