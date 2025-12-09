@@ -9,7 +9,7 @@ class DeclaracionRenta(models.Model):
     empleado_id = fields.Many2one("hr.employee", required=True)
     year = fields.Integer(string="Año", required=True)
 
-    nominas_ids = fields.One2many("nomina.empleado", string="Nóminas")
+    nominas_ids = fields.One2many("nomina.empleado", "renta_id", string="Nóminas")
 
     max_nominas = 14
 

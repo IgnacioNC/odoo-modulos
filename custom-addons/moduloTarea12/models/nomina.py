@@ -10,6 +10,8 @@ class Nomina(models.Model):
     sueldo_base = fields.Float(string="Sueldo Base", required=True)
     name = fields.Char(compute="_compute_name", store=True)
 
+    renta_id = fields.Many2one("empleado.renta", string="Declaración de la Renta", ondelete="set null")
+
     bonificacion_ids = fields.One2many(
         "nomina.bonificacion", "nomina_id", string="Bonificaciones/Deducciones"
     )
