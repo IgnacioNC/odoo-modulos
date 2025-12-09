@@ -37,18 +37,10 @@
             </group>
 
             <notebook>
-            <page string="Nóminas Vinculadas">
-                <field name="nominas_ids" mode="list,form">
-                    <list editable="bottom">
-                        <field name="name"/>
-                        <field name="fecha"/>
-                        <field name="sueldo_base"/>
-                        <field name="total_sueldo"/>
-                    </list>
-                </field>
-
-            </page>
-
+              <page string="Nóminas Vinculadas">
+                <field name="nominas_ids" widget="many2many_tags"/>
+                <field name="nominas_ids"/>
+              </page>
             </notebook>
 
           </sheet>
