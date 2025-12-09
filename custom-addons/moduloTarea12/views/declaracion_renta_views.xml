@@ -38,7 +38,7 @@
 
             <notebook>
               <page string="Nóminas Vinculadas">
-                <field name="nominas_ids" widget="many2many_tags"/>
+                <field name="nominas_ids"/>
               </page>
             </notebook>
 
