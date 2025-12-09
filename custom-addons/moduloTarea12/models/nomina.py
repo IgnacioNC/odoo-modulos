@@ -1,5 +1,6 @@
 from odoo import models, fields, api
 from datetime import date
+from odoo.exceptions import ValidationError
 
 class Nomina(models.Model):
     _name = "nomina.empleado"
@@ -81,6 +82,13 @@ class Nomina(models.Model):
                 - record.total_deducciones
                 - record.irpf_pagado
             )
+
+    @api.constrains("irpf")
+    def _check_irpf_range(self):
+        for r in self:
+            if r.irpf < 0 or r.irpf > 100:
+                raise ValidationError("El IRPF debe estar entre 0 y 100.")
+        
 
     @api.depends("empleado_id", "fecha")
     def _compute_name(self):
