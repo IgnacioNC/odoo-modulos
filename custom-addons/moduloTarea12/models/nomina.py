@@ -8,26 +8,23 @@ class Nomina(models.Model):
     _record_name = "name"
 
     empleado_id = fields.Many2one("hr.employee", string="Empleado", required=True)
+    
     sueldo_base = fields.Float(string="Sueldo Base", required=True)
+
     name = fields.Char(compute="_compute_name", store=True)
 
     renta_id = fields.Many2one("empleado.renta", string="Declaración de la Renta", ondelete="set null")
 
-    bonificacion_ids = fields.One2many(
-        "nomina.bonificacion", "nomina_id", string="Bonificaciones/Deducciones"
-    )
+    bonificacion_ids = fields.One2many("nomina.bonificacion", "nomina_id", string="Bonificaciones/Deducciones")
 
     irpf = fields.Float(string="IRPF (%)", default=0, required=True)
 
-    irpf_pagado = fields.Float(
-        string="IRPF Pagado (€)",
-        compute="_compute_irpf_pagado",
-        store=True
-    )
+    irpf_pagado = fields.Float(string="IRPF Pagado (€)", compute="_compute_irpf_pagado", store=True)
 
     fecha = fields.Date(string="Fecha", default=fields.Date.today)
 
     documento_pdf = fields.Binary(string="Justificante PDF")
+
     documento_pdf_name = fields.Char()
 
     estado = fields.Selection(
@@ -36,6 +33,7 @@ class Nomina(models.Model):
             ("confirmada", "Confirmada"),
             ("pagada", "Pagada")
         ],
+
         default="redactada",
         string="Estado",
         required=True
