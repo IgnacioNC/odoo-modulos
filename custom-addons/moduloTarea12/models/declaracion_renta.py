@@ -43,17 +43,7 @@ class DeclaracionRenta(models.Model):
                 record.regularizacion = -retenido
                 continue
 
-            # REDUCCIÓN RENDIMIENTO TRABAJO
-            if bruto <= 14000:
-                reduccion = 6000
-            elif bruto <= 20000:
-                reduccion = 6000 - (bruto - 14000) * 1
-            else:
-                reduccion = 0
-
-            base_general = max(bruto - reduccion, 0)
-
-            base_liquidable = max(base_general)
+            base_liquidable = bruto
 
             tramos = [
                 (12450, 0.095),
