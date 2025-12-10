@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+
+    <!-- explicit list view definition -->
+    <record id="view_bonificacion_list" model="ir.ui.view">
+      <field name="name">nomina.bonificacion.list</field>
+      <field name="model">nomina.bonificacion</field>
+      <field name="arch" type="xml">
+        <list string="Bonificaciones y Deducciones">
+          <field name="nomina_id"/>
+          <field name="concepto"/>
+          <field name="importe"/>
+        </list>
+      </field>
+    </record>
+
+    <!-- explicit form view definition -->
+    <record id="view_bonificacion_form" model="ir.ui.view">
+      <field name="name">nomina.bonificacion.form</field>
+      <field name="model">nomina.bonificacion</field>
+      <field name="arch" type="xml">
+        <form string="Bonificación / Deducción">
+          <sheet>
+            <group>
+              <field name="nomina_id"/>
+              <field name="concepto"/>
+              <field name="importe"/>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <!-- actions opening views on models -->
+    <record id="action_bonificaciones" model="ir.actions.act_window">
+      <field name="name">Bonificaciones y Deducciones</field>
+      <field name="res_model">nomina.bonificacion</field>
+      <field name="view_mode">list,form</field>
+    </record>
+
+  </data>
+</odoo>

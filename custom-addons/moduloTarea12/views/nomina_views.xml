@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+
+    <!-- explicit list view definition -->
+    <record id="view_nomina_list" model="ir.ui.view">
+      <field name="name">nomina.empleado.list</field>
+      <field name="model">nomina.empleado</field>
+      <field name="arch" type="xml">
+        <list string="Nóminas">
+          <field name="empleado_id"/>
+          <field name="fecha"/>
+          <field name="estado"/>
+          <field name="sueldo_base"/>
+          <field name="total_bonificaciones"/>
+          <field name="total_deducciones"/>
+          <field name="total_sueldo"/>
+        </list>
+      </field>
+    </record>
+
+    <!-- explicit form view definition -->
+    <record id="view_nomina_form" model="ir.ui.view">
+      <field name="name">nomina.empleado.form</field>
+      <field name="model">nomina.empleado</field>
+      <field name="arch" type="xml">
+        <form string="Nómina">
+          <sheet>
+
+            <group>
+              <group string="Datos del empleado">
+                <field name="empleado_id"/>
+                <field name="fecha"/>
+                <field name="estado"/>
+              </group>
+
+              <group string="Datos económicos">
+                <field name="sueldo_base"/>
+                <field name="irpf" />
+                <field name="irpf_pagado" readonly="1"/>
+              </group>
+            </group>
+
+            <group string="Declaración de Renta">
+              <field name="renta_id"/>
+            </group>
+
+            <notebook>
+
+              <page string="Bonificaciones y Deducciones">
+                <field name="bonificacion_ids">
+                  <list editable="bottom">
+                    <field name="concepto"/>
+                    <field name="importe"/>
+                  </list>
+                </field>
+              </page>
+
+              <page string="Documento PDF">
+                <field name="documento_pdf" filename="documento_pdf_name"/>
+              </page>
+
+            </notebook>
+
+            <group string="Totales">
+              <field name="total_bonificaciones" readonly="1"/>
+              <field name="total_deducciones" readonly="1"/>
+              <field name="total_sueldo" readonly="1"/>
+            </group>
+
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <!-- actions opening views on models -->
+    <record id="action_nominas" model="ir.actions.act_window">
+      <field name="name">Nóminas</field>
+      <field name="res_model">nomina.empleado</field>
+      <field name="view_mode">list,form</field>
+    </record>
+
+  </data>
+</odoo>

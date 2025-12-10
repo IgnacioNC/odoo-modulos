@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+
+    <!-- explicit list view definition -->
+    <record id="view_renta_list" model="ir.ui.view">
+      <field name="name">empleado.renta.list</field>
+      <field name="model">empleado.renta</field>
+      <field name="arch" type="xml">
+        <list string="Declaración de Renta">
+          <field name="empleado_id"/>
+          <field name="year"/>
+          <field name="sueldo_bruto_total"/>
+          <field name="impuestos_pagados"/>
+          <field name="irpf_teorico"/>
+          <field name="regularizacion"/>
+        </list>
+      </field>
+    </record>
+
+    <!-- explicit form view definition -->
+    <record id="view_renta_form" model="ir.ui.view">
+      <field name="name">empleado.renta.form</field>
+      <field name="model">empleado.renta</field>
+      <field name="arch" type="xml">
+        <form string="Declaración Anual de Renta">
+          <sheet>
+
+            <group>
+              <group string="Datos Generales">
+                <field name="empleado_id"/>
+                <field name="year"/>
+              </group>
+
+              <group string="Cálculos">
+                <field name="sueldo_bruto_total" readonly="1"/>
+                <field name="impuestos_pagados" readonly="1"/>
+                <field name="irpf_teorico" readonly="1"/>
+                <field name="regularizacion" readonly="1"/>
+              </group>
+            </group>
+
+            <notebook>
+              <page string="Nóminas Vinculadas">
+                 <field name="nominas_ids" widget="many2many_tags"/>
+              </page>
+            </notebook>
+
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <!-- actions opening views on models -->
+    <record id="action_renta" model="ir.actions.act_window">
+      <field name="name">Declaraciones de Renta</field>
+      <field name="res_model">empleado.renta</field>
+      <field name="view_mode">list,form</field>
+    </record>
+
+  </data>
+</odoo>

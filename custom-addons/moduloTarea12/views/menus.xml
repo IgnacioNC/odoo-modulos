@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+
+    <menuitem id="menu_nominas_root" name="Gestión Nóminas" sequence="10"/>
+
+    <menuitem id="menu_nominas" parent="menu_nominas_root" name="Nóminas" action="action_nominas" sequence="10"/>
+
+    <menuitem id="menu_bonificaciones" parent="menu_nominas_root" name="Bonificaciones y Deducciones" action="action_bonificaciones" sequence="20"/>
+
+    <menuitem id="menu_rentas" parent="menu_nominas_root" name="Declaraciones de Renta" action="action_renta" sequence="30"/>
+
+  </data>
+</odoo>

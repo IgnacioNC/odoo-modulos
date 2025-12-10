@@ -106,10 +106,18 @@ Incluye formularios y listas para:
 
 Menú principal:
 
+<<<<<<< HEAD
+=======
+```
+>>>>>>> pruebas
 Paquetería
   - Paquetes
   - Camiones
   - Estados de Envío
+<<<<<<< HEAD
+=======
+```
+>>>>>>> pruebas
 
 ---
 
