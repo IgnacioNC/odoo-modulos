@@ -22,6 +22,30 @@ class DeclaracionRenta(models.Model):
     
     regularizacion = fields.Float(compute="_compute_totales", store=True)
 
+    @api.constrains("nominas_ids")
+    def _check_max_nominas(self):
+        for record in self:
+            if len(record.nominas_ids) > record.max_nominas:
+                raise ValidationError("Solo se permiten un máximo de " + str(record.max_nominas) + " nóminas vinculadas.")
+
+    @api.constrains("nominas_ids","year")
+    def _check_nomina_year(self):
+        for record in self:
+            for nomina in record.nominas_ids:
+                if nomina.fecha:
+                    nomina_year = nomina.fecha.year
+                    if nomina_year != record.year:
+                        raise ValidationError("La nómina del " + str(nomina.fecha) + " pertenece al año " + 
+                        str(nomina.fecha.year) + ", pero esta declaración es del año " + str(record.year) + ".")
+                    
+    @api.constrains("nominas_ids", "empleado_id")
+    def _check_nominas_empleado(self):
+        for record in self:
+            for nomina in record.nominas_ids:
+                if nomina.empleado_id != record.empleado_id:
+                    raise ValidationError("La nómina " + str(nomina.name) + " pertenece a " + str(nomina.empleado_id.name) + 
+                    ", pero esta declaración es de " + str(record.empleado_id.name) + ".")
+                
     @api.depends(
     "nominas_ids",
     "nominas_ids.sueldo_base",
@@ -78,29 +102,5 @@ class DeclaracionRenta(models.Model):
             record.irpf_teorico = irpf_teorico
 
             # REGULARIZACIÓN FINAL
-            record.regularizacion = irpf_teorico - retenido
-
-    @api.constrains("nominas_ids")
-    def _check_max_nominas(self):
-        for record in self:
-            if len(record.nominas_ids) > record.max_nominas:
-                raise ValidationError("Solo se permiten un máximo de " + str(record.max_nominas) + " nóminas vinculadas.")
-
-    @api.constrains("nominas_ids","year")
-    def _check_nomina_year(self):
-        for record in self:
-            for nomina in record.nominas_ids:
-                if nomina.fecha:
-                    nomina_year = nomina.fecha.year
-                    if nomina_year != record.year:
-                        raise ValidationError("La nómina del " + str(nomina.fecha) + " pertenece al año " + 
-                        str(nomina.fecha.year) + ", pero esta declaración es del año " + str(record.year) + ".")
-                    
-    @api.constrains("nominas_ids", "empleado_id")
-    def _check_nominas_empleado(self):
-        for record in self:
-            for nomina in record.nominas_ids:
-                if nomina.empleado_id != record.empleado_id:
-                    raise ValidationError("La nómina " + str(nomina.name) + " pertenece a " + str(nomina.empleado_id.name) + 
-                    ", pero esta declaración es de " + str(record.empleado_id.name) + ".")
+            record.regularizacion = irpf_teorico - retenido            
            
