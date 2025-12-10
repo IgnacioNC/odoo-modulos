@@ -25,7 +25,12 @@ class DeclaracionRenta(models.Model):
     
     regularizacion = fields.Float(compute="_compute_totales", store=True)
 
-    @api.depends("nominas_ids")
+    @api.depends(
+    "nominas_ids",
+    "nominas_ids.sueldo_base",
+    "nominas_ids.total_bonificaciones",
+    "nominas_ids.irpf_pagado"
+    )
     def _compute_totales(self):
         for record in self:
 
