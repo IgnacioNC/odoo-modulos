@@ -32,7 +32,13 @@ class DeclaracionRenta(models.Model):
         for record in self:
 
             # SUMA TOTAL (año)
-            bruto = sum(n.sueldo_base + n.total_bonificaciones for n in record.nominas_ids)
+            bruto = sum(
+                n.sueldo_base +
+                n.total_bonificaciones -
+                n.total_deducciones
+                for n in record.nominas_ids
+            )
+            
             retenido = sum(n.irpf_pagado for n in record.nominas_ids)
 
             record.sueldo_bruto_total = bruto
