@@ -24,13 +24,9 @@ Descripción del módulo de la tarea 10
     'data': [
         'security/security.xml',
         'security/ir.model.access.csv',
-<<<<<<< HEAD
-        'views/ordenadores_view.xml',
-=======
         #'security/access_rights.xml',
         'views/ordenadores_view.xml',
         #'views/componentes_view.xml'
->>>>>>> pruebas
     ],
     'installable': True,
     'application': True
