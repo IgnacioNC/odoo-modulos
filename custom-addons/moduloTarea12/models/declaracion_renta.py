@@ -23,8 +23,56 @@ class DeclaracionRenta(models.Model):
     @api.depends("nominas_ids")
     def _compute_totales(self):
         for record in self:
-            record.sueldo_bruto_total = sum(n.sueldo_base + n.total_bonificaciones for n in record.nominas_ids)
-            record.impuestos_pagados = sum(n.irpf_pagado for n in record.nominas_ids)
+
+            bruto = sum(n.sueldo_base + n.total_bonificaciones for n in record.nominas_ids)
+            record.sueldo_bruto_total = bruto
+
+            # IRPF retenido
+            retenido = sum(n.irpf_pagado for n in record.nominas_ids)
+            record.impuestos_pagados = retenido
+
+            # Reducción por rendimiento del trabajo
+            if bruto <= 14000:
+                reduccion = 6000
+            elif bruto <= 20000:
+                reduccion = 6000 - (bruto - 14000) * 1
+            else:
+                reduccion = 0
+
+            base_general = max(bruto - reduccion, 0)
+
+            minimo_personal = 5550
+
+            base_liquidable = max(base_general - minimo_personal, 0)
+
+            tramos = [
+                (12450, 0.095),
+                (20200, 0.12),
+                (35200, 0.15),
+                (60000, 0.185),
+                (300000, 0.225),
+            ]
+
+            pendiente = base_liquidable
+            irpf_teorico = 0
+            limite_anterior = 0
+
+            for limite, tipo in tramos:
+                if pendiente <= 0:
+                    break
+
+                tramo_base = min(pendiente, limite - limite_anterior)
+                irpf_teorico += tramo_base * tipo
+                pendiente -= tramo_base
+                limite_anterior = limite
+
+            if pendiente > 0:
+                irpf_teorico += pendiente * 0.24
+
+            record.irpf_teorico = irpf_teorico
+
+            record.regularizacion = irpf_teorico - retenido
+
 
     @api.constrains("nominas_ids")
     def _check_max_nominas(self):

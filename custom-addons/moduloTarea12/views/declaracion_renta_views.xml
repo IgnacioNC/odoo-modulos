@@ -12,6 +12,8 @@
           <field name="year"/>
           <field name="sueldo_bruto_total"/>
           <field name="impuestos_pagados"/>
+          <field name="irpf_teorico"/>
+          <field name="regularizacion"/>
         </list>
       </field>
     </record>
@@ -33,6 +35,8 @@
               <group string="Cálculos">
                 <field name="sueldo_bruto_total" readonly="1"/>
                 <field name="impuestos_pagados" readonly="1"/>
+                <field name="irpf_teorico" readonly="1"/>
+                <field name="regularizacion" readonly="1"/>
               </group>
             </group>
 
