@@ -82,14 +82,7 @@ class Nomina(models.Model):
                 - record.total_deducciones
                 - record.irpf_pagado
             )
-
-    @api.constrains("irpf")
-    def _check_irpf_range(self):
-        for r in self:
-            if r.irpf < 0 or r.irpf > 100:
-                raise ValidationError("El IRPF debe estar entre 0 y 100.")
         
-
     @api.depends("empleado_id", "fecha")
     def _compute_name(self):
         for record in self:
@@ -99,3 +92,16 @@ class Nomina(models.Model):
                 record.name = record.empleado_id.name
             else:
                 record.name = "Nómina"
+
+    @api.constrains("irpf")
+    def _check_irpf_range(self):
+        for r in self:
+            if r.irpf < 0 or r.irpf > 100:
+                raise ValidationError("El IRPF debe estar entre 0 y 100.")            
+
+    @api.constrains("sueldo_base")
+    def _check_sueldo_base(self):
+        for r in self:
+            if r.sueldo_base < 0:
+                raise ValidationError("El sueldo base no puede ser negativo. El salario mínimo permitido es 0.")
+            
