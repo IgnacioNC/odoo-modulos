@@ -7,6 +7,7 @@ class DeclaracionRenta(models.Model):
     _description = "Declaración anual del empleado"
 
     empleado_id = fields.Many2one("hr.employee", required=True)
+
     year = fields.Integer(string="Año", required=True)
 
     nominas_ids = fields.Many2many("nomina.empleado", string="Nóminas")
@@ -27,29 +28,61 @@ class DeclaracionRenta(models.Model):
     @api.depends("nominas_ids")
     def _compute_totales(self):
         for record in self:
-            
-            # Calcular bruto e IRPF pagado real
+
+            # SUMA TOTAL (año)
             bruto = sum(n.sueldo_base + n.total_bonificaciones for n in record.nominas_ids)
             retenido = sum(n.irpf_pagado for n in record.nominas_ids)
 
             record.sueldo_bruto_total = bruto
             record.impuestos_pagados = retenido
 
-            # Si no hay bruto → no calculamos nada
-            if bruto == 0:
+            if bruto <= 0:
                 record.irpf_teorico = 0
                 record.regularizacion = -retenido
                 continue
 
-            # Calcular IRPF teórico basado en la retención media real del año
-            porcentaje_media = retenido / bruto
-            irpf_teorico = bruto * porcentaje_media
+            # REDUCCIÓN RENDIMIENTO TRABAJO
+            if bruto <= 14000:
+                reduccion = 6000
+            elif bruto <= 20000:
+                reduccion = 6000 - (bruto - 14000) * 1
+            else:
+                reduccion = 0
+
+            base_general = max(bruto - reduccion, 0)
+
+            # MÍNIMO PERSONAL
+            minimo_personal = 5550
+            base_liquidable = max(base_general - minimo_personal, 0)
+
+            tramos = [
+                (12450, 0.095),
+                (20200, 0.12),
+                (35200, 0.15),
+                (60000, 0.185),
+                (300000, 0.225),
+            ]
+
+            pendiente = base_liquidable
+            irpf_teorico = 0
+            limite_anterior = 0
+
+            for limite, tipo in tramos:
+                if pendiente <= 0:
+                    break
+
+                tramo_base = min(pendiente, limite - limite_anterior)
+                irpf_teorico += tramo_base * tipo
+                pendiente -= tramo_base
+                limite_anterior = limite
+
+            if pendiente > 0:
+                irpf_teorico += pendiente * 0.24
 
             record.irpf_teorico = irpf_teorico
 
-            # Regularización = teórico – pagado
+            # REGULARIZACIÓN FINAL
             record.regularizacion = irpf_teorico - retenido
-
 
     @api.constrains("nominas_ids")
     def _check_max_nominas(self):
