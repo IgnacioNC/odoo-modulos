@@ -27,54 +27,27 @@ class DeclaracionRenta(models.Model):
     @api.depends("nominas_ids")
     def _compute_totales(self):
         for record in self:
-
+            
+            # Calcular bruto e IRPF pagado real
             bruto = sum(n.sueldo_base + n.total_bonificaciones for n in record.nominas_ids)
-            record.sueldo_bruto_total = bruto
-
-            # IRPF retenido
             retenido = sum(n.irpf_pagado for n in record.nominas_ids)
+
+            record.sueldo_bruto_total = bruto
             record.impuestos_pagados = retenido
 
-            # Reducción por rendimiento del trabajo
-            if bruto <= 14000:
-                reduccion = 6000
-            elif bruto <= 20000:
-                reduccion = 6000 - (bruto - 14000) * 1
-            else:
-                reduccion = 0
+            # Si no hay bruto → no calculamos nada
+            if bruto == 0:
+                record.irpf_teorico = 0
+                record.regularizacion = -retenido
+                continue
 
-            base_general = max(bruto - reduccion, 0)
-
-            minimo_personal = 5550
-
-            base_liquidable = max(base_general - minimo_personal, 0)
-
-            tramos = [
-                (12450, 0.095),
-                (20200, 0.12),
-                (35200, 0.15),
-                (60000, 0.185),
-                (300000, 0.225),
-            ]
-
-            pendiente = base_liquidable
-            irpf_teorico = 0
-            limite_anterior = 0
-
-            for limite, tipo in tramos:
-                if pendiente <= 0:
-                    break
-
-                tramo_base = min(pendiente, limite - limite_anterior)
-                irpf_teorico += tramo_base * tipo
-                pendiente -= tramo_base
-                limite_anterior = limite
-
-            if pendiente > 0:
-                irpf_teorico += pendiente * 0.24
+            # Calcular IRPF teórico basado en la retención media real del año
+            porcentaje_media = retenido / bruto
+            irpf_teorico = bruto * porcentaje_media
 
             record.irpf_teorico = irpf_teorico
 
+            # Regularización = teórico – pagado
             record.regularizacion = irpf_teorico - retenido
 
 
