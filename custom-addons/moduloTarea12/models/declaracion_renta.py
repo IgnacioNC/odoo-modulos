@@ -20,6 +20,10 @@ class DeclaracionRenta(models.Model):
         compute="_compute_totales", store=True
     )
 
+    irpf_teorico = fields.Float(compute="_compute_totales", store=True)
+    
+    regularizacion = fields.Float(compute="_compute_totales", store=True)
+
     @api.depends("nominas_ids")
     def _compute_totales(self):
         for record in self:
