@@ -14,12 +14,9 @@ class DeclaracionRenta(models.Model):
 
     max_nominas = 14
 
-    sueldo_bruto_total = fields.Float(
-        compute="_compute_totales", store=True
-    )
-    impuestos_pagados = fields.Float(
-        compute="_compute_totales", store=True
-    )
+    sueldo_bruto_total = fields.Float(compute="_compute_totales", store=True)
+
+    impuestos_pagados = fields.Float(compute="_compute_totales", store=True)
 
     irpf_teorico = fields.Float(compute="_compute_totales", store=True)
     
@@ -56,9 +53,7 @@ class DeclaracionRenta(models.Model):
 
             base_general = max(bruto - reduccion, 0)
 
-            # MÍNIMO PERSONAL
-            minimo_personal = 5550
-            base_liquidable = max(base_general - minimo_personal, 0)
+            base_liquidable = max(base_general)
 
             tramos = [
                 (12450, 0.095),
@@ -94,7 +89,6 @@ class DeclaracionRenta(models.Model):
         for record in self:
             if len(record.nominas_ids) > record.max_nominas:
                 raise ValidationError("Solo se permiten un máximo de " + str(record.max_nominas) + " nóminas vinculadas.")
-
 
     @api.constrains("nominas_ids","year")
     def _check_nomina_year(self):
