@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <record id="group_nominas_user" model="res.groups">
+        <field name="name">Usuario Normal Nóminas</field>
+        <field name="category_id" ref="base.module_category_operations"/>
+        <field name="comment">Puede ver las nóminas y declaraciones, pero no modificarlas.</field>
+    </record>
+
+    <record id="group_user_advanced" model="res.groups">
+        <field name="name">Usuario Avanzado Nóminas</field>
+        <field name="category_id" ref="base.module_category_operations"/>
+        <field name="comment">
+            Puede leer y modificar registros, pero no crear ni eliminar.
+        </field>
+        <field name="implied_ids" eval="[(4, ref('group_nominas_user'))]"/>
+    </record>
+
+    <record id="group_user_admin" model="res.groups">
+        <field name="name">Administrador del Módulo de Nóminas</field>
+        <field name="category_id" ref="base.module_category_operations"/>
+        <field name="comment">Acceso completo a todas las funcionalidades.</field>
+        <field name="implied_ids" eval="[(4, ref('group_user_advanced'))]"/>
+    </record>
+
+</odoo>
