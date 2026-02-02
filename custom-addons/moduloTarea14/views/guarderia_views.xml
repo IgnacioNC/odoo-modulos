@@ -1,0 +1,51 @@
+<odoo>
+    <record id="view_guarderia_form" model="ir.ui.view">
+        <field name="name">modulotarea14.guarderia.form</field>
+        <field name="model">modulotarea14.guarderia</field>
+        <field name="arch" type="xml">
+          <form string="Guardería">
+            <sheet>
+              <group>
+                <field name="employee_id" options="{'no_create': True}"/>
+                <field name="event_id" options="{'no_create': True}"/>
+
+                <field name="rango_edad"/>
+                <field name="descripcion"/>
+              </group>
+
+              <group string="Datos del empleado">
+                <field name="job_title" readonly="1"/>
+                <field name="work_email" readonly="1"/>
+              </group>
+
+              <group string="Datos del evento">
+                <field name="date_begin" readonly="1"/>
+                <field name="date_end" readonly="1"/>
+              </group>
+            </sheet>
+          </form>
+        </field>
+    </record>
+
+    <record id="view_guarderia_list" model="ir.ui.view">
+        <field name="name">modulotarea14.guarderia.list</field>
+        <field name="model">modulotarea14.guarderia</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="rango_edad"/>
+                <field name="date_begin"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_guarderia" model="ir.actions.act_window">
+        <field name="name">Guardería</field>
+        <field name="res_model">modulotarea14.guarderia</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="menu_guarderia_root" name="Guardería" sequence="10"/>
+    <menuitem id="menu_guarderia" name="Servicios" parent="menu_guarderia_root"
+              action="action_guarderia" sequence="10"/>
+</odoo>

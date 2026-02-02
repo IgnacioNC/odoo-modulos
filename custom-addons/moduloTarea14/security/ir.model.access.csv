@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_guarderia_user,guarderia.user,model_modulotarea14_guarderia,moduloTarea14.group_guarderia_user,1,0,0,0
+access_guarderia_manager,guarderia.manager,model_modulotarea14_guarderia,moduloTarea14.group_guarderia_manager,1,1,1,1
